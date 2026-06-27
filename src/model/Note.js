@@ -1,36 +1,30 @@
-import { maxLength } from "better-auth";
-import { Timestamp } from "mongodb";
 import mongoose from "mongoose";
-import { Content } from "next/font/google";
 
-const Noteschems= new mongoose.Schema({
+const NoteSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 30,
+    },
+    content: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    userId: {
+      type: String,
+      required: true,
+      index: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-   title:{
-    type: String,
-    require:true,
-    trim:true,
-    maxLength:30
-   },
-   Content:{
-    type:String,
-    require:true,
-    trim:true
-   },
-   userId:{
-    type:string,
-    required:true,
-    index:true
-   },
-},
-{
-Timestamp:true
+const Note =
+  mongoose.models.Note || mongoose.model("Note", NoteSchema);
 
-
-
-})
-
-const Note= 
-  mongoose.model.Note || mongoose.model("Note",Noteschems)
-
-
-export default Note  
+export default Note;
